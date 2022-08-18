@@ -2,9 +2,9 @@ import { CakesRepository } from "../repositories/cakesRepository.js";
 
 export async function postCakes(req, res) {
     let { name, price, image, description } = req.body;
-    const cleanName = name.trim();
-    const cleanImage = image.trim();
-    const cleanDescription = description.trim();
+    const cleanName = String(name).trim();
+    const cleanImage = String(image).trim();
+    const cleanDescription = String(description).trim();
 
     try {
         await CakesRepository.postCakes(cleanName, price, cleanImage, cleanDescription);
