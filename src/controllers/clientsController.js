@@ -12,4 +12,4 @@ export async function postClients(req, res) {
     } catch (error) {
         return res.sendStatus(500);
     }
-}
+} 
