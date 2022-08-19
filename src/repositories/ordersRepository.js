@@ -11,14 +11,16 @@ export class OrdersRepository {
         return connection.query(`SELECT * FROM clients WHERE id = $1`, [clientId]);
     }
     static async getOrders() {
-        return connection.query(`SELECT clients.id as "clientId", clients.name as "clientName", clients.address as "clientAddress", clients.phone as "clientPhone",cakes.id as "cakeId", cakes.name as "cakeName", cakes.price as "cakePrice", cakes.description as "cakeDescription", cakes.image as "cakeImage", orders.id as "orderId", "createdAt", quantity,"totalPrice" FROM orders JOIN cakes ON cakes.id = orders."cakeId" JOIN clients ON clients.id = orders."clientId";
+        return connection.query(`SELECT clients.id as "clientId", clients.name as "clientName", clients.address as "clientAddress", clients.phone as "clientPhone",cakes.id as "cakeId", cakes.name as "cakeName", cakes.price as "cakePrice", cakes.description as "cakeDescription", cakes.image as "cakeImage", flavours.name as "flavourName",orders.id as "orderId", "createdAt", quantity,"totalPrice" FROM orders JOIN cakes ON cakes.id = orders."cakeId" JOIN clients ON clients.id = orders."clientId" JOIN flavours ON flavours.id = cakes."flavourId";
         `)
     }
     static async getOrdersByDate(date) {
-        return connection.query(`SELECT clients.id as "clientId", clients.name as "clientName", clients.address as "clientAddress", clients.phone as "clientPhone",cakes.id as "cakeId", cakes.name as "cakeName", cakes.price as "cakePrice", cakes.description as "cakeDescription", cakes.image as "cakeImage", orders.id as "orderId", "createdAt", quantity,"totalPrice" FROM orders JOIN cakes ON cakes.id = orders."cakeId" JOIN clients ON clients.id = orders."clientId" WHERE DATE("createdAt") = $1;`, [date])
+        return connection.query(`SELECT clients.id as "clientId", clients.name as "clientName", clients.address as "clientAddress", clients.phone as "clientPhone",cakes.id as "cakeId", cakes.name as "cakeName", cakes.price as "cakePrice", cakes.description as "cakeDescription", cakes.image as "cakeImage", flavours.name as "flavourName",orders.id as "orderId", "createdAt", quantity,"totalPrice" FROM orders JOIN cakes ON cakes.id = orders."cakeId" JOIN clients ON clients.id = orders."clientId" JOIN flavours ON flavours.id = cakes."flavourId";
+        WHERE DATE("createdAt") = $1;`, [date])
     }
     static async getOrdersById(id) {
-        return connection.query(`SELECT clients.id as "clientId", clients.name as "clientName", clients.address as "clientAddress", clients.phone as "clientPhone",cakes.id as "cakeId", cakes.name as "cakeName", cakes.price as "cakePrice", cakes.description as "cakeDescription", cakes.image as "cakeImage", orders.id as "orderId", "createdAt", quantity,"totalPrice" FROM orders JOIN cakes ON cakes.id = orders."cakeId" JOIN clients ON clients.id = orders."clientId" WHERE orders.id = $1`, [id])
+        return connection.query(`SELECT clients.id as "clientId", clients.name as "clientName", clients.address as "clientAddress", clients.phone as "clientPhone",cakes.id as "cakeId", cakes.name as "cakeName", cakes.price as "cakePrice", cakes.description as "cakeDescription", cakes.image as "cakeImage", flavours.name as "flavourName",orders.id as "orderId", "createdAt", quantity,"totalPrice" FROM orders JOIN cakes ON cakes.id = orders."cakeId" JOIN clients ON clients.id = orders."clientId" JOIN flavours ON flavours.id = cakes."flavourId";
+        WHERE orders.id = $1`, [id])
     }
     static async orderExists(id) {
         return connection.query(`SELECT * FROM orders WHERE id = $1`, [id]);

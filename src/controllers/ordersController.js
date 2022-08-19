@@ -30,6 +30,7 @@ export async function getOrders(req, res) {
                     "price": order.cakePrice,
                     "description": order.cakeDescription,
                     "image": order.cakeImage,
+                    "flavourName": order.flavourName
 
                 },
                 "orderId": order.orderId,
@@ -55,6 +56,7 @@ export async function getOrders(req, res) {
                     "price": order.cakePrice,
                     "description": order.cakeDescription,
                     "image": order.cakeImage,
+                    "flavourName": order.flavourName
 
                 },
                 "orderId": order.orderId,
@@ -87,6 +89,7 @@ export async function getOrdersById(req, res) {
                 "price": order.cakePrice,
                 "description": order.cakeDescription,
                 "image": order.cakeImage,
+                "flavourName": order.flavourName
 
             },
             "orderId": order.orderId,
