@@ -20,13 +20,14 @@ CREATE TABLE "orders" (
     "cakeId" integer NOT NULL,
     "quantity" integer NOT NULL,
     "totalPrice" numeric NOT NULL,
+    "isDelivered" BOOLEAN NOT NULL DEFAULT 'false',
     "createdAt" TIMESTAMP DEFAULT 'NOW()',
     CONSTRAINT "orders_pk" PRIMARY KEY ("id")
 ) WITH (OIDS = FALSE);
 CREATE TABLE "flavours" (
     "id" serial NOT NULL,
     "name" varchar(150) NOT NULL,
-    CONSTRAINT "flavors_pk" PRIMARY KEY ("id")
+    CONSTRAINT "flavours_pk" PRIMARY KEY ("id")
 ) WITH (OIDS = FALSE);
 ALTER TABLE "cakes"
 ADD CONSTRAINT "cakes_fk0" FOREIGN KEY ("flavourId") REFERENCES "flavours"("id");
