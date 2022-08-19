@@ -2,16 +2,18 @@ import chalk from "chalk";
 
 import { cakeSchema as cakes } from "../schemas/cakesSchema.js";
 import { clientsSchema as clients } from "../schemas/clientsSchema.js";
+import { orderSchema as orders } from "../schemas/ordersSchema.js";
 
 const Schemas = {
     cakes,
-    clients
+    clients,
+    orders
 }
 
 export function validateJoi(object) {
     return (req, res, next) => {
         const { error } = Schemas[object].validate(req.body, { abortEarly: false });
-        if(!error) return next()
+        if (!error) return next()
         if (error.details[0].message.slice(0, 7) === `"image"`) {
             console.log(chalk.bold.red("Something went wrong, " + error.details[0].message))
             return res.sendStatus(422);
