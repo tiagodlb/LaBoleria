@@ -44,3 +44,15 @@ export async function ordersExists(req, res, next) {
         return res.sendStatus(500);
     }
 }
+
+export async function orderExists(req,res,next){
+    const { id } = req.params
+    try {
+        const order = await OrdersRepository.orderExists(id);
+        if (order.rowCount === 0) return res.sendStatus(404);
+
+        return next()
+    } catch (error) {
+        return res.sendStatus(500);
+    }
+}

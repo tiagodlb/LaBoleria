@@ -10,13 +10,17 @@ export class OrdersRepository {
     static async clientExists(clientId) {
         return connection.query(`SELECT * FROM clients WHERE id = $1`, [clientId]);
     }
-    static async getOrders(){
-        return connection.query(`SELECT * FROM orders`)
+    static async getOrders() {
+        return connection.query(`SELECT clients.id as "clientId", clients.name as "clientName", clients.address as "clientAddress", clients.phone as "clientPhone",cakes.id as "cakeId", cakes.name as "cakeName", cakes.price as "cakePrice", cakes.description as "cakeDescription", cakes.image as "cakeImage", orders.id as "orderId", "createdAt", quantity,"totalPrice" FROM orders JOIN cakes ON cakes.id = orders."cakeId" JOIN clients ON clients.id = orders."clientId";
+        `)
     }
-    static async getOrdersByDate(date){
-        return connection.query(`SELECT id, "clientId", "cakeId", quantity, "totalPrice", DATE("createdAt") as "createdAt" FROM orders WHERE DATE("createdAt") = $1;`,[date])
+    static async getOrdersByDate(date) {
+        return connection.query(`SELECT clients.id as "clientId", clients.name as "clientName", clients.address as "clientAddress", clients.phone as "clientPhone",cakes.id as "cakeId", cakes.name as "cakeName", cakes.price as "cakePrice", cakes.description as "cakeDescription", cakes.image as "cakeImage", orders.id as "orderId", "createdAt", quantity,"totalPrice" FROM orders JOIN cakes ON cakes.id = orders."cakeId" JOIN clients ON clients.id = orders."clientId" WHERE DATE("createdAt") = $1;`, [date])
     }
-    static async getOrdersById(){
-        return connection.query(``)
+    static async getOrdersById(id) {
+        return connection.query(`SELECT clients.id as "clientId", clients.name as "clientName", clients.address as "clientAddress", clients.phone as "clientPhone",cakes.id as "cakeId", cakes.name as "cakeName", cakes.price as "cakePrice", cakes.description as "cakeDescription", cakes.image as "cakeImage", orders.id as "orderId", "createdAt", quantity,"totalPrice" FROM orders JOIN cakes ON cakes.id = orders."cakeId" JOIN clients ON clients.id = orders."clientId" WHERE orders.id = $1`, [id])
+    }
+    static async orderExists(id) {
+        return connection.query(`SELECT * FROM orders WHERE id = $1`, [id]);
     }
 }
