@@ -1,9 +1,11 @@
 import chalk from "chalk";
 
 import { cakeSchema as cakes } from "../schemas/cakesSchema.js";
+import { clientsSchema as clients } from "../schemas/clientsSchema.js";
 
 const Schemas = {
-    cakes
+    cakes,
+    clients
 }
 
 export function validateJoi(object) {
