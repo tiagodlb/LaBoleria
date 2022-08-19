@@ -12,6 +12,7 @@ export async function postClients(req, res) {
     } catch (error) {
         return res.sendStatus(500);
     }
+}
 
 export async function getClientByOrder(req,res){
     const { id } = req.params
