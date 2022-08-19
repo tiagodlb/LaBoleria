@@ -8,6 +8,6 @@ import { validateJoi } from "../middlewares/joiValidationMiddleware.js";
 const orderRouter = Router();
 
 orderRouter.post("/order", validateJoi("orders"), clientExists, cakeExists, postOrder);
-orderRouter.get("/order", ordersExists, getOrders);
-orderRouter.get("/order/:id", orderExists, getOrdersById )
+orderRouter.get("/orders", ordersExists, getOrders);
+orderRouter.get("/orders/:id", orderExists, getOrdersById )
 export default orderRouter;

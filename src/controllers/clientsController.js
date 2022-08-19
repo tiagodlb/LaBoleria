@@ -13,3 +13,13 @@ export async function postClients(req, res) {
         return res.sendStatus(500);
     }
 }
+
+export async function getClientByOrder(req,res){
+    const { id } = req.params
+    try {
+        const clientOrder = await clientsRepository.getClientOrder(id);
+        return res.send(clientOrder.rows).status(200);
+    } catch (error) {
+        return res.sendStatus(500);
+    }
+}
