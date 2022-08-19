@@ -27,7 +27,7 @@ export async function getOrders(req, res) {
                 "cake": {
                     "id": order.cakeId,
                     "name": order.cakeName,
-                    "price": order.cakePrice,
+                    "price": parseFloat(order.cakePrice).toFixed(2),
                     "description": order.cakeDescription,
                     "image": order.cakeImage,
                     "flavourName": order.flavourName
@@ -36,7 +36,8 @@ export async function getOrders(req, res) {
                 "orderId": order.orderId,
                 createdAt: (order.createdAt).toLocaleDateString("en-CA"),
                 quantity: order.quantity,
-                totalPrice: order.totalPrice
+                totalPrice: parseFloat(parseInt(order.totalPrice)).toFixed(2),
+                isDelivered: order.isDelivered
             }))
             return res.send(data).status(200);
         }
@@ -53,7 +54,7 @@ export async function getOrders(req, res) {
                 "cake": {
                     "id": order.cakeId,
                     "name": order.cakeName,
-                    "price": order.cakePrice,
+                    "price": parseFloat(order.cakePrice).toFixed(2),
                     "description": order.cakeDescription,
                     "image": order.cakeImage,
                     "flavourName": order.flavourName
@@ -62,7 +63,8 @@ export async function getOrders(req, res) {
                 "orderId": order.orderId,
                 createdAt: (order.createdAt).toLocaleDateString("en-CA"),
                 quantity: order.quantity,
-                totalPrice: order.totalPrice
+                totalPrice: parseFloat(parseInt(order.totalPrice)).toFixed(2),
+                isDelivered: order.isDelivered
             }))
             return res.send(data).status(200);
         }
@@ -86,7 +88,7 @@ export async function getOrdersById(req, res) {
             "cake": {
                 "id": order.cakeId,
                 "name": order.cakeName,
-                "price": order.cakePrice,
+                "price": parseFloat(order.cakePrice).toFixed(2),
                 "description": order.cakeDescription,
                 "image": order.cakeImage,
                 "flavourName": order.flavourName
@@ -95,9 +97,20 @@ export async function getOrdersById(req, res) {
             "orderId": order.orderId,
             createdAt: (order.createdAt).toLocaleDateString("en-CA"),
             quantity: order.quantity,
-            totalPrice: order.totalPrice
+            totalPrice: parseFloat(parseInt(order.totalPrice)).toFixed(2),
+            isDelivered: order.isDelivered
         }))
         return res.send(data).status(200);
+    } catch (error) {
+        return res.sendStatus(500);
+    }
+}
+
+export async function patchOrder(req, res) {
+    const { id } = req.params
+    try {
+        await OrdersRepository.patchOrder(id);
+        return res.sendStatus(204)
     } catch (error) {
         return res.sendStatus(500);
     }

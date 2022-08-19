@@ -45,8 +45,9 @@ export async function ordersExists(req, res, next) {
     }
 }
 
-export async function orderExists(req,res,next){
+export async function orderExists(req, res, next) {
     const { id } = req.params
+    if (/^[0-9]$/.test(id) === false) return res.sendStatus(400);
     try {
         const order = await OrdersRepository.orderExists(id);
         if (order.rowCount === 0) return res.sendStatus(404);
