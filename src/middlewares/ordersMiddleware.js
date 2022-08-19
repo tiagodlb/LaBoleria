@@ -1,10 +1,10 @@
-import { OrdersRepository } from "../repositories/ordersRepository.js"; 
+import { OrdersRepository } from "../repositories/ordersRepository.js";
 
 export async function cakeExists(req, res, next) {
     const { cakeId } = req.body
     try {
-        const teste = await OrdersRepository.cakeExists(cakeId);
-        if (teste.rowCount === 0) return res.sendStatus(404);
+        const cake = await OrdersRepository.cakeExists(cakeId);
+        if (cake.rowCount === 0) return res.sendStatus(404);
 
         return next()
     } catch (error) {
@@ -15,11 +15,31 @@ export async function cakeExists(req, res, next) {
 export async function clientExists(req, res, next) {
     const { clientId } = req.body
     try {
-        const teste = await OrdersRepository.clientExists(clientId);
-        if (teste.rowCount === 0) return res.sendStatus(404);
-        console.log("aqui")
+        const client = await OrdersRepository.clientExists(clientId);
+        if (client.rowCount === 0) return res.sendStatus(404);
 
         return next()
+    } catch (error) {
+        return res.sendStatus(500);
+    }
+}
+
+export async function ordersExists(req, res, next) {
+    const date = req.query.date
+    try {
+        if (date === undefined) {
+
+            const orders = await OrdersRepository.getOrders()
+            if (orders.rowCount === 0) return res.sendStatus(404)
+
+            return next();
+        }
+        else {
+            const orders = await OrdersRepository.getOrdersByDate(date)
+            if (orders.rowCount === 0) return res.sendStatus(404)
+
+            return next();
+        }
     } catch (error) {
         return res.sendStatus(500);
     }
