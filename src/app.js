@@ -5,7 +5,8 @@ import chalk from "chalk";
 
 //Routes
 import cakesRouter from "./routes/cakesRouter.js";
-import clientRouter from "./routes/clientsRouter.js"
+import clientRouter from "./routes/clientsRouter.js";
+import orderRouter from "./routes/ordersRouter.js";
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ const app = express();
 app.use(cors(), json());
 app.use(cakesRouter);
 app.use(clientRouter);
+app.use(orderRouter);
 
 
 
